@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# S2C - AI Sketch-to-Design Learning Project
 
-## Getting Started
+S2C is a project-based learning rebuild of an AI SaaS-style sketch-to-design application.
 
-First, run the development server:
+The app allows users to create design projects, sketch wireframes on an infinite canvas, upload inspiration images, generate a style guide, render AI-generated UI screens, create related workflow pages, and export generated designs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project was built to understand how modern AI SaaS applications work across frontend, backend, authentication, database, background workflows, AI APIs, and interactive canvas tooling.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> This is a learning project inspired by Web Prodigies and is not intended for commercial launch.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Status
 
-## Learn More
+This project is currently a learning case study and technical build.
 
-To learn more about Next.js, take a look at the following resources:
+It is not being launched publicly as a commercial SaaS product because the original concept and tutorial structure belong to Web Prodigies. The goal of this repository is to document the learning process, implementation, architecture, and engineering decisions involved in building a full-stack AI SaaS-style application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features
 
-## Deploy on Vercel
+- Google authentication
+- Protected app routes
+- Project dashboard
+- Project creation and management
+- Infinite canvas editor
+- Frames, shapes, text, lines, arrows, and free drawing
+- Eraser tool
+- Layer selection and editing
+- Zoom and pan controls
+- Manual save and autosave
+- Moodboard image uploads
+- Image URL support
+- AI-generated style guide
+- AI-generated UI screens
+- AI-generated workflow pages
+- PNG export
+- JSON export
+- Dark-mode-only interface
+- Responsive dashboard and editor layouts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+### Frontend
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Radix UI
+- lucide-react
+- Redux
+
+### Backend
+
+- Convex
+- Convex Auth
+- Convex Database
+- Convex Storage
+
+### AI
+
+- Gemini API
+- OpenAI-compatible API route structure
+- AI style guide generation
+- AI UI generation
+- AI workflow generation
+
+### Automation
+
+- Inngest
+- Autosave workflows
+
+### Development Tools
+
+- VS Code
+- Windows
+- npm
+- ngrok
+- Git/GitHub
+
+---
+
+## Core Workflow
+
+1. User signs in with Google.
+2. User creates a new design project.
+3. User sketches a wireframe on the infinite canvas.
+4. User uploads moodboard or inspiration images.
+5. The app generates a style guide from the moodboard.
+6. The app uses the wireframe, style guide, and inspiration images to generate UI.
+7. The user can generate related workflow pages.
+8. Designs can be exported as PNG or JSON.
+
+---
+
+## Architecture Overview
+
+```txt
+User Interface
+   |
+   |-- Auth Pages
+   |-- Dashboard
+   |-- Canvas Editor
+   |-- Style Guide Page
+   |
+Frontend State
+   |
+   |-- Redux canvas state
+   |-- Viewport state
+   |-- Selected layers/tools
+   |
+Backend
+   |
+   |-- Convex database
+   |-- Convex Auth
+   |-- Convex Storage
+   |
+AI Routes
+   |
+   |-- Generate style guide
+   |-- Generate UI
+   |-- Generate workflow pages
+   |
+Automation
+   |
+   |-- Inngest autosave
+   |
+Exports
+   |
+   |-- PNG export
+   |-- JSON export
