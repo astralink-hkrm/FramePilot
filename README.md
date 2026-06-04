@@ -2,11 +2,11 @@
 
 S2C is a project-based learning rebuild of an AI SaaS-style sketch-to-design application.
 
-The app allows users to create design projects, sketch wireframes on an infinite canvas, upload inspiration images, generate a style guide, render AI-generated UI screens, create related workflow pages, and export generated designs.
+The web app allows users to create design projects, sketch wireframes on an infinite canvas, upload inspiration images, generate a style guide, render AI-generated UI screens, create related workflow pages, and export generated designs.
 
 This project was built to understand how modern AI SaaS applications work across frontend, backend, authentication, database, background workflows, AI APIs, and interactive canvas tooling.
 
-> This is a learning project inspired by Web Prodigies and is not intended for commercial launch.
+> This is a learning project inspired by Web Prodigies and is not intended for deployment.
 
 ---
 
