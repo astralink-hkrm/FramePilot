@@ -97,6 +97,12 @@ It is not being launched publicly as a commercial SaaS product because the origi
 8. Designs can be exported as PNG or JSON.
 
 ---
+## Credit & Disclaimer
+This project is a project-based learning rebuild inspired by the Web Prodigies AI SaaS tutorial.
+
+The original product concept and tutorial structure belong to Web Prodigies. This repository is not intended for commercial launch, resale, or public SaaS deployment. It was built strictly as a learning project to understand modern AI SaaS architecture, including Next.js, Convex, Convex Auth, Inngest, AI APIs, canvas tooling, and workflow generation.
+
+If this project were to be launched commercially, the appropriate license/permission from Web Prodigies would be required.
 
 ## Architecture Overview
 
