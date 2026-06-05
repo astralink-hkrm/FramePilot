@@ -1,0 +1,1 @@
+export { MoodBoardImage } from "./images.board";

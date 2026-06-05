@@ -7,13 +7,12 @@ export const Text = ({ shape }: { shape: TextShape }) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(shape.text === "Type here...");
   const [tempText, setTempText] = useState(shape.text);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-focus when text is newly created (placeholder text)
   useEffect(() => {
     if (shape.text === "Type here..." && inputRef.current) {
       inputRef.current.focus();
-      inputRef.current.select(); // Select all placeholder text
+      inputRef.current.select();
       setIsEditing(true);
     }
   }, [shape.text]);
@@ -22,7 +21,7 @@ export const Text = ({ shape }: { shape: TextShape }) => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
       if (shape.text === "Type here...") {
-        inputRef.current.select(); // Select placeholder text
+        inputRef.current.select();
       }
     }
   }, [isEditing, shape.text]);
@@ -35,24 +34,17 @@ export const Text = ({ shape }: { shape: TextShape }) => {
   const handleBlur = () => {
     setIsEditing(false);
     if (tempText.trim() === "" || tempText.trim() === "Type here...") {
-      // Delete empty or unchanged placeholder text box
       dispatch(removeShape(shape.id));
-    } else if (tempText.trim() !== shape.text) {
-      dispatch(
-        updateShape({
-          id: shape.id,
-          patch: { text: tempText.trim() },
-        })
-      );
+    } else if (tempText !== shape.text) {
+      dispatch(updateShape({ id: shape.id, patch: { text: tempText } }));
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
       handleBlur();
-    } else if (e.key === "Escape") {
+    } else if (event.key === "Escape") {
       if (shape.text === "Type here...") {
-        // Delete placeholder text box on escape
         dispatch(removeShape(shape.id));
       } else {
         setIsEditing(false);
@@ -61,34 +53,35 @@ export const Text = ({ shape }: { shape: TextShape }) => {
     }
   };
 
+  const commonStyle = {
+    left: shape.x,
+    top: shape.y,
+    fontSize: shape.fontSize,
+    fontFamily: shape.fontFamily,
+    fontWeight: shape.fontWeight,
+    fontStyle: shape.fontStyle,
+    textAlign: shape.textAlign,
+    textDecoration: shape.textDecoration,
+    lineHeight: shape.lineHeight,
+    letterSpacing: shape.letterSpacing,
+    textTransform: shape.textTransform,
+    color: shape.fill || "#ffffff",
+    whiteSpace: "pre-wrap" as const,
+  };
+
   if (isEditing) {
     return (
-      <input
-        suppressHydrationWarning ref={inputRef}
-        type="text"
-        className="absolute pointer-events-auto bg-transparent outline-none text-white rounded px-2 py-1"
-        style={{
-          left: shape.x,
-          top: shape.y,
-          fontSize: shape.fontSize,
-          fontFamily: shape.fontFamily,
-          fontWeight: shape.fontWeight,
-          fontStyle: shape.fontStyle,
-          textAlign: shape.textAlign,
-          textDecoration: shape.textDecoration,
-          lineHeight: shape.lineHeight,
-          letterSpacing: shape.letterSpacing,
-          textTransform: shape.textTransform,
-          color: shape.fill || "#ffffff",
-          minWidth: "100px",
-          whiteSpace: "nowrap",
-        }}
+      <textarea
+        suppressHydrationWarning
+        ref={inputRef}
+        className="absolute pointer-events-auto min-h-10 min-w-32 resize-none rounded bg-black/20 px-2 py-1 text-white outline-none ring-1 ring-primary/40"
+        style={commonStyle}
         value={tempText}
-        onChange={(e) => setTempText(e.target.value)}
+        onChange={(event) => setTempText(event.target.value)}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
+        rows={Math.max(2, tempText.split("\n").length)}
         placeholder=""
-        autoComplete="off"
       />
     );
   }
@@ -97,28 +90,13 @@ export const Text = ({ shape }: { shape: TextShape }) => {
     <div
       className="absolute pointer-events-none cursor-text select-none rounded px-2 py-1"
       style={{
-        left: shape.x,
-        top: shape.y,
-        fontSize: shape.fontSize,
-        fontFamily: shape.fontFamily,
-        fontWeight: shape.fontWeight,
-        fontStyle: shape.fontStyle,
-        textAlign: shape.textAlign,
-        textDecoration: shape.textDecoration,
-        lineHeight: shape.lineHeight,
-        letterSpacing: shape.letterSpacing,
-        textTransform: shape.textTransform,
-        color: shape.fill || "#ffffff",
+        ...commonStyle,
         userSelect: "none",
-        whiteSpace: "nowrap", // Prevent line breaks
       }}
       onDoubleClick={handleDoubleClick}
-      title="Double-click to edit">
-      <span
-        className="pointer-events-auto"
-        style={{ display: "block", minWidth: "20px", minHeight: "1em" }}>
-        {shape.text}
-      </span>
+      title="Double-click to edit"
+    >
+      <span className="pointer-events-auto block min-h-[1em] min-w-5">{shape.text}</span>
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { ProjectEditorPage } from "@/components/editor/project-editor-page";
+﻿import { ProjectRouteClient } from "./client";
 
 export default function ProjectRoute() {
-  return <ProjectEditorPage />;
+  return <ProjectRouteClient />;
 }

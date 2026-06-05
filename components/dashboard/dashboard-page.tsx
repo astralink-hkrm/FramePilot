@@ -3,12 +3,10 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { useQuery } from "convex/react";
-import { ArrowRight, FileText, LogOut, Plus, Search, SwatchBook } from "lucide-react";
+import { FileText, LogOut, Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 
-import { api } from "@/convex/_generated/api";
-import { ThemeToggle } from "@/components/theme/toggle";
+import { AiUsagePill } from "@/components/ai/usage-pill";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,23 +20,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from "@/hooks/use-auth";
+import { useSignOut } from "@/hooks/use-sign-out";
 import { useProjects } from "@/lib/use-projects";
 
-function formatDate(timestamp: number) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(timestamp);
+function projectGradient(projectNumber: number) {
+  const gradients = [
+    "linear-gradient(135deg, #ff6b8a 0%, #ffb86c 58%, #ffe66d 100%)",
+    "linear-gradient(135deg, #ffd7c7 0%, #ffb6a8 56%, #f7d8bd 100%)",
+    "linear-gradient(135deg, #8fd3f4 0%, #84fab0 52%, #f6d365 100%)",
+    "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 48%, #fad0c4 100%)",
+    "linear-gradient(135deg, #1f2937 0%, #0f766e 58%, #a7f3d0 100%)",
+    "linear-gradient(135deg, #c7d2fe 0%, #60a5fa 55%, #22d3ee 100%)",
+  ];
+
+  return gradients[(projectNumber - 1) % gradients.length];
 }
+
+function relativeDate(timestamp: number) {
+  const day = 1000 * 60 * 60 * 24;
+  const diff = Math.max(0, Math.floor((Date.now() - timestamp) / day));
+
+  if (diff === 0) return "Today";
+  if (diff === 1) return "1 day ago";
+  return `${diff} days ago`;
+}
+
 
 export function DashboardPage() {
   const router = useRouter();
-  const user = useQuery(api.users.current);
   const { projects, isLoading, createProject } = useProjects();
-  const { handleSignOut, isLoading: isSigningOut } = useAuth();
+  const { handleSignOut, isLoading: isSigningOut } = useSignOut();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
@@ -95,11 +106,11 @@ export function DashboardPage() {
           </Link>
 
           <div className="flex items-center gap-3">
+            <AiUsagePill />
             <div className="hidden text-right sm:block">
-              <p className="text-sm font-medium text-foreground">{user?.name ?? user?.email ?? "Account"}</p>
+              <p className="text-sm font-medium text-foreground">Account</p>
               <p className="text-xs text-muted-foreground">Learning project</p>
             </div>
-            <ThemeToggle />
             <Button
               type="button"
               variant="outline"
@@ -117,11 +128,11 @@ export function DashboardPage() {
       </header>
 
       <section className="mx-auto max-w-6xl px-5 py-8">
-        <div className="flex flex-col gap-5 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-5 pb-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-normal text-foreground">Projects</h1>
+            <h1 className="text-2xl font-semibold tracking-normal text-foreground">Your Projects</h1>
             <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
-              Create and organize sketch-to-code canvases as you move through the tutorial.
+              Manage your design projects and continue where you left off.
             </p>
           </div>
 
@@ -178,7 +189,7 @@ export function DashboardPage() {
           </Dialog>
         </div>
 
-        <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="mt-4 flex flex-col gap-3 border-t border-border pt-5 md:flex-row md:items-center md:justify-between">
           <div className="relative w-full md:max-w-sm">
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -194,10 +205,14 @@ export function DashboardPage() {
           </p>
         </div>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid max-w-5xl gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {isLoading &&
             Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="h-44 animate-pulse rounded-lg border border-border bg-card" />
+              <div key={index} className="space-y-3">
+                <div className="aspect-[1.42] animate-pulse rounded-md border border-border bg-card" />
+                <div className="h-4 w-36 animate-pulse rounded bg-muted" />
+                <div className="h-3 w-20 animate-pulse rounded bg-muted" />
+              </div>
             ))}
 
           {!isLoading && filteredProjects.length === 0 && (
@@ -222,21 +237,21 @@ export function DashboardPage() {
             <Link
               key={project._id}
               href={`/dashboard/projects/${project._id}`}
-              className="group rounded-lg border border-border bg-card p-4 transition hover:border-foreground/20 hover:bg-muted/50"
+              prefetch={false}
+              className="group block min-w-0 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <h2 className="truncate text-sm font-semibold text-foreground">{project.name}</h2>
-                  <p className="mt-1 text-xs text-muted-foreground">Project {project.projectNumber}</p>
+              <div
+                className="relative aspect-[1.42] overflow-hidden rounded-md border border-white/10 transition duration-200 group-hover:-translate-y-0.5 group-hover:border-white/25"
+                style={{ background: projectGradient(project.projectNumber) }}
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.9)_0,rgba(255,255,255,0.76)_7%,transparent_15%),linear-gradient(135deg,rgba(255,255,255,0.18),transparent_42%,rgba(0,0,0,0.1))]" />
+                <div className="absolute inset-0 grid place-items-center">
+                  <div className="size-9 rounded-full bg-white/80 shadow-[0_0_32px_rgba(255,255,255,0.55)]" />
                 </div>
-                <ArrowRight className="mt-0.5 size-4 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-foreground" />
               </div>
-              <p className="mt-4 line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
-                {project.description || "Blank canvas ready for frames, shapes, and viewport data."}
-              </p>
-              <div className="mt-5 flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground">
-                <span>{formatDate(project.lastModified)}</span>
-                <span className="inline-flex items-center gap-1"><SwatchBook className="size-3" />{project.moodBoardImages?.length ?? 0} refs</span>
+              <div className="mt-2 min-w-0">
+                <h2 className="truncate text-xs font-medium leading-none text-foreground">{project.name || `Project ${project.projectNumber}`}</h2>
+                <p className="mt-1 text-[11px] leading-none text-muted-foreground">{relativeDate(project.lastModified)}</p>
               </div>
             </Link>
           ))}

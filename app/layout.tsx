@@ -3,7 +3,6 @@ import { Geist_Mono, Inter } from "next/font/google";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 
 import { ConvexClientProvider } from "@/components/convex/provider";
-import { ReduxProvider } from "@/components/redux/provider";
 import { ThemeProvider } from "@/components/theme/provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -36,17 +35,16 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={`${inter.variable} ${inter.className} ${geistMono.variable} font-sans antialiased`}>
           <ConvexClientProvider>
-            <ReduxProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-              >
-                {children}
-                <Toaster richColors closeButton />
-              </ThemeProvider>
-            </ReduxProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              forcedTheme="dark"
+              enableSystem={false}
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster richColors closeButton />
+            </ThemeProvider>
           </ConvexClientProvider>
         </body>
       </html>

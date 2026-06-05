@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-import { ThemeToggle } from "@/components/theme/toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,6 +25,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
+import { MoodBoardImage } from "@/components/style/mood-board";
+import { recordAiUsage } from "@/lib/ai-usage";
 
 const defaultColors = [
   { name: "Background", value: "#0A0A0A", usage: "Primary app and canvas background" },
@@ -90,20 +91,6 @@ function parseStyleGuide(value?: string): StyleGuide {
 }
 
 
-function isRemoteUrl(value: string) {
-  return value.startsWith("http://") || value.startsWith("https://") || value.startsWith("data:") || value.startsWith("blob:");
-}
-
-function MoodboardImage({ value }: { value: string }) {
-  const resolvedUrl = useQuery(api.projects.resolveMoodboardImage, isRemoteUrl(value) ? "skip" : { storageId: value });
-  const src = isRemoteUrl(value) ? value : resolvedUrl;
-
-  if (!src) {
-    return <div className="grid h-full w-full place-items-center text-xs text-muted-foreground">Loading image</div>;
-  }
-
-  return <img src={src} alt="Moodboard reference" className="h-full w-full object-cover" />;
-}
 function suggestedGuideFromMoodboard(images: string[]): StyleGuide {
   const hasImages = images.length > 0;
 
@@ -131,6 +118,7 @@ export function StyleGuidePage() {
   const updateProject = useMutation(api.projects.update);
   const generateUploadUrl = useMutation(api.projects.generateMoodboardUploadUrl);
   const [isSaving, setIsSaving] = useState(false);
+  const [isGeneratingGuide, setIsGeneratingGuide] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -142,6 +130,10 @@ export function StyleGuidePage() {
 
   const activeGuide = guide ?? initialGuide;
   const moodboardImages = localImages;
+  const resolvedMoodboardImages = useQuery(
+    api.projects.resolveImageUrls,
+    moodboardImages.length > 0 ? { values: moodboardImages } : "skip"
+  );
 
   useEffect(() => {
     setLocalImages(project?.moodBoardImages ?? []);
@@ -240,9 +232,46 @@ export function StyleGuidePage() {
     await saveGuide(activeGuide, moodboardImages.filter((image) => image !== url));
   };
 
-  const generateGuide = () => {
-    setGuide(suggestedGuideFromMoodboard(moodboardImages));
-    toast.success("Starter guide generated");
+  const generateGuide = async () => {
+    if (moodboardImages.length > 0 && resolvedMoodboardImages === undefined) {
+      toast.info("Preparing moodboard images");
+      return;
+    }
+
+    const generationImages = resolvedMoodboardImages ?? moodboardImages;
+    setIsGeneratingGuide(true);
+
+    try {
+      recordAiUsage();
+      const response = await fetch("/api/generate-style-guide", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          projectName: project?.name,
+          images: generationImages,
+          notes: activeGuide.notes,
+        }),
+      });
+
+      const result = (await response.json()) as { guide?: StyleGuide; fallback?: boolean; error?: string; providerError?: string };
+      if (!response.ok || !result.guide) throw new Error(result.error || "Could not generate style guide");
+
+      if (result.fallback && generationImages.length > 0) {
+        throw new Error(result.providerError || "OpenAI could not read the moodboard image");
+      }
+
+      setGuide(result.guide);
+      await saveGuide(result.guide, moodboardImages);
+      toast.success(result.fallback ? "Starter guide generated" : "AI style guide generated");
+    } catch (error) {
+      console.error(error);
+      const fallbackGuide = suggestedGuideFromMoodboard(moodboardImages);
+      setGuide(fallbackGuide);
+      await saveGuide(fallbackGuide, moodboardImages);
+      toast.error("AI guide unavailable, saved starter guide");
+    } finally {
+      setIsGeneratingGuide(false);
+    }
   };
 
   if (project === undefined) {
@@ -269,7 +298,6 @@ export function StyleGuidePage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <Button className="h-9" disabled={isSaving} onClick={() => void saveGuide()}>
               <Save className="size-4" />
               {isSaving ? "Saving" : "Save"}
@@ -290,9 +318,9 @@ export function StyleGuidePage() {
               Manage the colors, typography, and moodboard direction that will guide AI-generated screens for this project.
             </p>
           </div>
-          <Button variant="outline" className="h-9" onClick={generateGuide}>
+          <Button variant="outline" className="h-9" onClick={() => void generateGuide()} disabled={isGeneratingGuide || isSaving}>
             <Sparkles className="size-4" />
-            Generate from moodboard
+            {isGeneratingGuide ? "Generating" : "Generate from moodboard"}
           </Button>
         </div>
 
@@ -599,7 +627,7 @@ export function StyleGuidePage() {
                   <Card key={url} className="rounded-lg">
                     <CardContent className="p-3">
                       <div className="aspect-video overflow-hidden rounded-md border bg-muted">
-                        <MoodboardImage value={url} />
+                        <MoodBoardImage value={url} />
                       </div>
                       <div className="mt-3 flex items-center justify-between gap-3">
                         <p className="truncate text-xs text-muted-foreground">{url}</p>

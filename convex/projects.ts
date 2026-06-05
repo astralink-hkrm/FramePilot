@@ -142,6 +142,57 @@ export const update = mutation({
   },
 });
 
+
+
+function isRemoteImageReference(value: string) {
+  return value.startsWith("http://") || value.startsWith("https://") || value.startsWith("data:");
+}
+
+export const resolveImageUrls = query({
+  args: {
+    values: v.array(v.string()),
+  },
+  handler: async (ctx, { values }) => {
+    await requireUserId(ctx);
+
+    const resolved = await Promise.all(
+      values.slice(0, 12).map(async (value) => {
+        if (isRemoteImageReference(value)) return value;
+        return await ctx.storage.getUrl(value);
+      })
+    );
+
+    return resolved.filter((value): value is string => Boolean(value));
+  },
+});
+
+export const generateUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    await requireUserId(ctx);
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+export const clearInspirationImages = mutation({
+  args: {
+    id: v.id("projects"),
+  },
+  handler: async (ctx, { id }) => {
+    const userId = await requireUserId(ctx);
+    const project = await ctx.db.get(id);
+
+    if (!project || project.userId !== userId) {
+      throw new Error("Project not found.");
+    }
+
+    await ctx.db.patch(id, {
+      inspirationImages: [],
+      lastModified: Date.now(),
+    });
+  },
+});
+
 export const generateMoodboardUploadUrl = mutation({
   args: {},
   handler: async (ctx) => {

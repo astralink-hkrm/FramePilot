@@ -61,8 +61,15 @@ if (Test-PortOpen -Port $port) {
 $nextPath = Join-Path $project ".next"
 $resolvedNext = Resolve-Path -LiteralPath $nextPath -ErrorAction SilentlyContinue
 if ($resolvedNext -and $resolvedNext.Path.StartsWith($project, [StringComparison]::OrdinalIgnoreCase)) {
-  Write-Host "Clearing stale .next cache"
-  Remove-Item -LiteralPath $resolvedNext.Path -Recurse -Force
+  $routesManifest = Join-Path $resolvedNext.Path "routes-manifest.json"
+  $shouldClean = $env:S2C_CLEAN_NEXT -eq "1" -or -not (Test-Path -LiteralPath $routesManifest)
+
+  if ($shouldClean) {
+    Write-Host "Clearing stale .next cache"
+    Remove-Item -LiteralPath $resolvedNext.Path -Recurse -Force
+  } else {
+    Write-Host "Keeping warm .next cache"
+  }
 }
 
 foreach ($log in @($out, $err)) {

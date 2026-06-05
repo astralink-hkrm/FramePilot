@@ -1,5 +1,5 @@
-import { StyleGuidePage } from "@/components/style-guide/style-guide-page";
+﻿import { StyleGuideRouteClient } from "./client";
 
 export default function StyleGuideRoute() {
-  return <StyleGuidePage />;
+  return <StyleGuideRouteClient />;
 }

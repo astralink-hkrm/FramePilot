@@ -8,24 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
-import { ThemeToggle } from "@/components/theme/toggle";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 type AuthFormProps = {
   mode: "sign-in" | "sign-up";
 };
-
-function MicrosoftMark() {
-  return (
-    <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
-      <path fill="#F25022" d="M3 3h8.5v8.5H3z" />
-      <path fill="#7FBA00" d="M12.5 3H21v8.5h-8.5z" />
-      <path fill="#00A4EF" d="M3 12.5h8.5V21H3z" />
-      <path fill="#FFB900" d="M12.5 12.5H21V21h-8.5z" />
-    </svg>
-  );
-}
 
 export function AuthForm({ mode }: AuthFormProps) {
   const isSignUp = mode === "sign-up";
@@ -36,10 +24,6 @@ export function AuthForm({ mode }: AuthFormProps) {
 
   return (
     <div className="w-full max-w-[430px]">
-      <div className="mb-4 flex justify-end">
-        <ThemeToggle />
-      </div>
-
       <Card className="rounded-lg border-border bg-card shadow-xl shadow-black/5 dark:shadow-black/35">
         <CardContent className="p-8">
           <div className="mb-5 space-y-1.5">
@@ -165,12 +149,8 @@ export function AuthForm({ mode }: AuthFormProps) {
             <div className="h-px flex-1 bg-border" />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3">
             <GoogleButton />
-            <Button type="button" variant="outline" disabled className="h-9 text-xs">
-              <MicrosoftMark />
-              Microsoft
-            </Button>
           </div>
         </CardContent>
       </Card>
