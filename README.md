@@ -18,7 +18,7 @@
 
 ![FramePilot style guide colours](./public/screenshots/F3.png)
 
-### First Generation based on Hand-drawn frame 
+###  More Generated UI pages 
 
 ![FramePilot style guide typography](./public/screenshots/F4.png)
 
