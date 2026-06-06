@@ -14,7 +14,7 @@
 
 ![FramePilot sign in page](./public/screenshots/F2.png)
 
-### Style Guide - Colours
+### First Generation based on Hand-drawn frame 
 
 ![FramePilot style guide colours](./public/screenshots/F3.png)
 
