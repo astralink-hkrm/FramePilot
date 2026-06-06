@@ -6,11 +6,11 @@
 
 ## Screenshots
 
-### Project Dashboard
+### Authentication
 
 ![FramePilot project dashboard](./public/screenshots/F1.png)
 
-### Authentication
+### Project Dashboard
 
 ![FramePilot sign in page](./public/screenshots/F2.png)
 
