@@ -18,7 +18,7 @@
 
 ![FramePilot style guide colours](./public/screenshots/F3.png)
 
-### Style Guide - Typography
+### Sketch to Generated UI 
 
 ![FramePilot style guide typography](./public/screenshots/F4.png)
 
@@ -30,7 +30,7 @@
 
 ![FramePilot generated workflow pages](./public/screenshots/F6.png)
 
-### Sketch to Generated UI
+### Style Guide - Typography
 
 ![FramePilot canvas sketch to generated UI](./public/screenshots/F7.png)
 
