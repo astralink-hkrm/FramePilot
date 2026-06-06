@@ -26,11 +26,11 @@
 
 ![FramePilot moodboard image upload](./public/screenshots/F5.png)
 
-### Workflow Generation
+### Style Guide - Generated Typography
 
 ![FramePilot generated workflow pages](./public/screenshots/F6.png)
 
-### Style Guide - Typography
+### Style Guide -  Generated Colour Palette
 
 ![FramePilot canvas sketch to generated UI](./public/screenshots/F7.png)
 
