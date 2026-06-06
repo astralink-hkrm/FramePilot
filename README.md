@@ -14,11 +14,11 @@
 
 ![FramePilot sign in page](./public/screenshots/F2.png)
 
-### First Generation based on Hand-drawn frame 
+### Sketch to Generated UI
 
 ![FramePilot style guide colours](./public/screenshots/F3.png)
 
-### Sketch to Generated UI 
+### First Generation based on Hand-drawn frame 
 
 ![FramePilot style guide typography](./public/screenshots/F4.png)
 
