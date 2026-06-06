@@ -1,10 +1,50 @@
 # FramePilot
 
-FramePilot is an AI-assisted sketch-to-design workspace built as a full-stack learning project. It lets users create design projects, sketch wireframes on an infinite canvas, upload moodboard or inspiration images, generate style guides, render UI screens with AI, create related workflow pages, and export generated work.
+## Demo Video
 
-The project focuses on the end-to-end architecture of a modern AI SaaS product: authentication, database-backed projects, interactive canvas state, background jobs, AI generation routes, deployment, and production environment configuration.
+> Demo walkthrough video will be added here.
 
-> Note: This repository is a project-based learning build inspired by the Web Prodigies AI SaaS tutorial structure. It is not intended for commercial launch or resale without the appropriate permissions/licenses from the original tutorial/product owner.
+## Screenshots
+
+### Project Dashboard
+
+![FramePilot project dashboard](./public/screenshots/F1.png)
+
+### Authentication
+
+![FramePilot sign in page](./public/screenshots/F2.png)
+
+### Style Guide - Colours
+
+![FramePilot style guide colours](./public/screenshots/F3.png)
+
+### Style Guide - Typography
+
+![FramePilot style guide typography](./public/screenshots/F4.png)
+
+### Style Guide - Moodboard
+
+![FramePilot moodboard image upload](./public/screenshots/F5.png)
+
+### Workflow Generation
+
+![FramePilot generated workflow pages](./public/screenshots/F6.png)
+
+### Sketch to Generated UI
+
+![FramePilot canvas sketch to generated UI](./public/screenshots/F7.png)
+
+## Description
+
+FramePilot is an AI-assisted sketch-to-design web application built as a full-stack product workflow. It allows users to create design projects, sketch wireframes on an infinite canvas, add moodboard and inspiration images, generate style guides, render AI-powered UI screens, create related workflow pages, and export designs as PNG or JSON.
+
+The project demonstrates the architecture of a modern AI SaaS product, including authentication, protected dashboards, database-backed project management, canvas state handling, background autosave workflows, AI generation APIs, deployment configuration, and production-ready environment setup.
+
+FramePilot was built to explore how visual ideation can move from rough wireframes to structured UI outputs through a guided workflow. The focus is not only on generating screens, but also on understanding the full development pipeline behind an AI product: frontend design systems, backend data models, auth, async jobs, cloud deployment, and AI prompt orchestration.
+
+FramePilot was developed as a full-stack implementation inspired by the Web Prodigies AI SaaS tutorial structure, with custom branding, workflow refinements, deployment setup, and feature adaptations built around the FramePilot product direction.
+
+> Note: This repository is inspired by the Web Prodigies AI SaaS tutorial structure and adapts the concept into the FramePilot product workflow with custom implementation details, branding, and feature decisions.
 
 ## Features
 
@@ -185,6 +225,4 @@ When deploying, update provider callback URLs and environment variables for the 
 
 ## Credit and Disclaimer
 
-This project is a project-based learning implementation inspired by the Web Prodigies AI SaaS tutorial. The original tutorial concept and structure belong to Web Prodigies. FramePilot was built for learning, internship onboarding, and technical demonstration purposes.
-
-If this application were ever launched commercially, the appropriate license or permission from the original concept/tutorial owner would be required.
+This project is inspired by the Web Prodigies AI SaaS tutorial structure. The FramePilot implementation includes custom branding, UI decisions, workflow changes, deployment setup, and feature adaptations built for the FramePilot repository.
