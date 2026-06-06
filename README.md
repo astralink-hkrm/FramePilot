@@ -4,7 +4,7 @@
 
 > Demo walkthrough video will be added here.
 
-## UI/UX 
+## UserInterface
 
 ### Authentication
 
