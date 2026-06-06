@@ -110,7 +110,7 @@ function cleanPageTypes(value: unknown) {
 }
 
 function buildPlanPrompt(payload: PlanPayload) {
-  return `You are the workflow planner for S2C, an AI sketch-to-code product.
+  return `You are the workflow planner for FramePilot, an AI sketch-to-code product.
 
 Analyze the selected generated UI and choose the next 3-4 screens this product actually needs. These names will become AI generation targets, so they must be concrete page types, not vague labels.
 

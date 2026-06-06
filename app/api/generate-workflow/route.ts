@@ -174,7 +174,7 @@ function fallbackWorkflow(pageType: string, prompt: string, providerError?: stri
   line-height: 1.6;
 }
 `.trim();
-  const html = `<div data-generated-ui><main class="workflow-shell"><section class="workflow-card"><p class="workflow-eyebrow">S2C Workflow</p><h1>${title}</h1><p>${providerError || "Generated fallback workflow page."}</p></section></main></div>`;
+  const html = `<div data-generated-ui><main class="workflow-shell"><section class="workflow-card"><p class="workflow-eyebrow">FramePilot Workflow</p><h1>${title}</h1><p>${providerError || "Generated fallback workflow page."}</p></section></main></div>`;
 
   return {
     ok: true,

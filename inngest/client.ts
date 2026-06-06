@@ -2,5 +2,5 @@
 
 export const inngest = new Inngest({
   id: "s2c",
-  name: "S2C",
+  name: "FramePilot",
 });

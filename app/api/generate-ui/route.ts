@@ -160,7 +160,7 @@ function fallbackGeneratedUi(payload: GeneratePayload, providerError?: string): 
   const frameShapes = payload.frameShapes ?? [];
   const textHints = textHintsFromShapes(frameShapes);
   const title = textHints[0] || payload.prompt?.trim() || payload.projectName || `Frame ${payload.frame?.frameNumber ?? 1} concept`;
-  const body = textHints[1] || "A focused, production-ready interface generated from your S2C wireframe.";
+  const body = textHints[1] || "A focused, production-ready interface generated from your FramePilot wireframe.";
   const cta = textHints[2] || "Continue";
 
   const background = colorFromGuide(payload.styleGuide, "background", "#0b0b0b");
@@ -281,7 +281,7 @@ function fallbackGeneratedUi(payload: GeneratePayload, providerError?: string): 
 <div data-generated-ui>
   <main class="s2c-shell" id="generated-screen">
     <section class="s2c-card" id="hero-section">
-      <p class="s2c-eyebrow">S2C Generated UI</p>
+      <p class="s2c-eyebrow">FramePilot Generated UI</p>
       <h1 class="s2c-title">${escapeHtml(title)}</h1>
       <p class="s2c-copy">${escapeHtml(body)}</p>
       <div class="s2c-actions">
@@ -302,7 +302,7 @@ function fallbackGeneratedUi(payload: GeneratePayload, providerError?: string): 
 
   return {
     title,
-    prompt: payload.prompt?.trim() || "Generate a clean S2C interface from this frame.",
+    prompt: payload.prompt?.trim() || "Generate a clean FramePilot interface from this frame.",
     sourceFrameId: payload.frame?.id,
     sourceFrameNumber: payload.frame?.frameNumber,
     sections,
@@ -333,7 +333,7 @@ function normalizeGeneratedOutput(rawOutput: string, payload: GeneratePayload): 
 
   return {
     title,
-    prompt: payload.prompt?.trim() || "Generated from S2C frame data.",
+    prompt: payload.prompt?.trim() || "Generated from FramePilot frame data.",
     sourceFrameId: payload.frame?.id,
     sourceFrameNumber: payload.frame?.frameNumber,
     sections,

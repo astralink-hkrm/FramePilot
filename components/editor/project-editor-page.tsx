@@ -584,7 +584,7 @@ function generatedHtmlDocument(value: string | null) {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>${escapePreviewHtml(spec.title || "S2C generated UI")}</title>
+<title>${escapePreviewHtml(spec.title || "FramePilot generated UI")}</title>
 <style>
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; background: #0b0b0b; }
@@ -1899,7 +1899,7 @@ export function ProjectEditorPage() {
               </button>
             )}
             <p className="mt-1 truncate text-xs text-muted-foreground">
-              {saveStatus === "saving" ? "Autosaving..." : saveStatus === "saved" ? "Autosaved" : saveStatus === "error" ? "Autosave failed" : "S2C / Editor"}
+              {saveStatus === "saving" ? "Autosaving..." : saveStatus === "saved" ? "Autosaved" : saveStatus === "error" ? "Autosave failed" : "FramePilot / Editor"}
             </p>
           </div>
         </div>

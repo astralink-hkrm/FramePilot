@@ -28,7 +28,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         <CardContent className="p-8">
           <div className="mb-5 space-y-1.5">
             <h1 className="text-xl font-semibold text-foreground">
-              {isSignUp ? "Create a S2C Account" : "Sign in to S2C"}
+              {isSignUp ? "Create a FramePilot Account" : "Sign in to FramePilot"}
             </h1>
             <p className="text-sm leading-5 text-muted-foreground">
               {isSignUp ? "Welcome! Create an account to get started" : "Welcome back! Sign in to continue"}

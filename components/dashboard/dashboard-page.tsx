@@ -100,7 +100,7 @@ export function DashboardPage() {
               S
             </div>
             <div>
-              <p className="text-sm font-semibold leading-none">S2C</p>
+              <p className="text-sm font-semibold leading-none">FramePilot</p>
               <p className="mt-1 text-xs text-muted-foreground">Design workspace</p>
             </div>
           </Link>
@@ -109,7 +109,6 @@ export function DashboardPage() {
             <AiUsagePill />
             <div className="hidden text-right sm:block">
               <p className="text-sm font-medium text-foreground">Account</p>
-              <p className="text-xs text-muted-foreground">Learning project</p>
             </div>
             <Button
               type="button"

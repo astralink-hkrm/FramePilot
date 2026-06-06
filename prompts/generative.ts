@@ -109,13 +109,13 @@ export function buildGenerateUserPrompt(input: GeneratePromptInput) {
   const colors = flattenColors(parsedStyleGuide);
   const typography = flattenTypography(parsedStyleGuide);
 
-  return `You are generating the final UI for a selected S2C wireframe frame. The selected frame is the layout blueprint. The style guide and attached inspiration images are the visual source of truth. Preserve the frame intent, hierarchy, visible labels, card count, pricing/content structure, and relative placement. Map the style guide colors, typography scale, spacing, and radii directly into the returned HTML/CSS. If inspiration images are attached, match their palette, density, surfaces, button style, and product category before any generic S2C defaults. Enforce WCAG AA contrast. Never invent unrelated visual language; stay consistent with S2C as a practical AI sketch-to-code SaaS.
+  return `You are generating the final UI for a selected FramePilot wireframe frame. The selected frame is the layout blueprint. The style guide and attached inspiration images are the visual source of truth. Preserve the frame intent, hierarchy, visible labels, card count, pricing/content structure, and relative placement. Map the style guide colors, typography scale, spacing, and radii directly into the returned HTML/CSS. If inspiration images are attached, match their palette, density, surfaces, button style, and product category before any generic FramePilot defaults. Enforce WCAG AA contrast. Never invent unrelated visual language; stay consistent with FramePilot as a practical AI sketch-to-code SaaS.
 
 User request:
 ${input.userPrompt?.trim() || "Generate a clean, production-ready UI from this frame."}
 
 Project:
-${input.projectName || "Untitled S2C project"}
+${input.projectName || "Untitled FramePilot project"}
 
 Frame snapshot image attached: ${input.frameSnapshotAvailable ? "yes - treat this as the primary visual blueprint" : "no"}
 

@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "S2C",
+  title: "FramePilot",
   description: "Sketch wireframes and generate production-ready designs with AI.",
 };
 

@@ -69,7 +69,7 @@ function parseStyleGuide(value?: string): StyleGuide {
     return {
       colorSections: defaultColors,
       typographySections: defaultTypography,
-      notes: "A compact, work-focused design system for S2C project workflows.",
+      notes: "A compact, work-focused design system for FramePilot project workflows.",
     };
   }
 

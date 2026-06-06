@@ -205,7 +205,7 @@ async function callGeminiStyleGuide(payload: GenerateStylePayload, imageInputs: 
     {
       text: `${prompts.styleGuide.system}
 
-Project: ${payload.projectName || "Untitled S2C project"}
+Project: ${payload.projectName || "Untitled FramePilot project"}
 Notes: ${payload.notes || "No additional notes."}
 Moodboard image count: ${imageInputs.length}
 
@@ -287,8 +287,8 @@ export async function POST(request: NextRequest) {
       imageInputsProvidedToModel: imageInputs.length,
       notes: payload.notes,
       imageInstruction: imageInputs.length
-        ? "The attached images are the source of truth. Extract the dominant colors, accent colors, contrast style, spacing density, corner radius, and typography mood from them. If a moodboard shows purple, yellow, white, peach, neon, or another obvious palette, those directions must appear in the returned design tokens. Do not fall back to the generic S2C dark slate palette unless the images actually support it."
-        : "No moodboard images were provided, so create a practical starter guide for S2C.",
+        ? "The attached images are the source of truth. Extract the dominant colors, accent colors, contrast style, spacing density, corner radius, and typography mood from them. If a moodboard shows purple, yellow, white, peach, neon, or another obvious palette, those directions must appear in the returned design tokens. Do not fall back to the generic FramePilot dark slate palette unless the images actually support it."
+        : "No moodboard images were provided, so create a practical starter guide for FramePilot.",
       outputSchema: {
         colorSections: [{ name: "Background", value: "#0A0A0A", usage: "Where this token is used" }],
         typographySections: [{ role: "Body", family: "Inter", weight: "400", size: "14px", lineHeight: "22px", usage: "Where this style is used" }],
@@ -299,7 +299,7 @@ export async function POST(request: NextRequest) {
         "Use the exact field names in outputSchema.",
         "Use Inter unless the moodboard strongly suggests another common web-safe sans serif.",
         "Keep the system practical for a sketch-to-code AI SaaS editor.",
-        "Match the visual language of the provided images before matching any default S2C colors.",
+        "Match the visual language of the provided images before matching any default FramePilot colors.",
         "Use concrete descriptive token names based on the moodboard, not generic names if the image suggests something stronger.",
         "Use valid 6 digit hex colors.",
       ],

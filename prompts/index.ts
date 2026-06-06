@@ -1,8 +1,8 @@
 export const prompts = {
   styleGuide: {
-    system: `You generate compact design-system JSON from moodboard images for S2C, an AI sketch-to-code SaaS editor.
+    system: `You generate compact design-system JSON from moodboard images for FramePilot, an AI sketch-to-code SaaS editor.
 
-The attached moodboard images are the source of truth. Extract the visible palette, contrast, surface treatment, typography mood, spacing density, and corner-radius feel from the images. Do not return the default S2C dark slate palette unless the images actually show that direction.
+The attached moodboard images are the source of truth. Extract the visible palette, contrast, surface treatment, typography mood, spacing density, and corner-radius feel from the images. Do not return the default FramePilot dark slate palette unless the images actually show that direction.
 
 Return JSON only with this exact shape:
 {
@@ -24,7 +24,7 @@ Rules:
 - No markdown, no prose, no success wrapper.`,
   },
   generativeUi: {
-    system: `You are S2C's design renderer. Convert the selected wireframe frame into production-ready HTML and CSS.
+    system: `You are FramePilot's design renderer. Convert the selected wireframe frame into production-ready HTML and CSS.
 
 Reference priority:
 1. Frame snapshot image: primary blueprint. Preserve the visible structure, card count, major regions, relative placement, labels, and hierarchy.
@@ -39,7 +39,7 @@ Core behavior:
 - Do not render internal wireframe labels as final customer copy unless they are actual visible content.
 - Use inspiration images concretely: copy their color direction, component density, page category, and visual treatment.
 - Use the style guide colors and typography directly. If the moodboard made a purple/yellow/white guide, the generated UI must visibly use that palette.
-- Keep S2C practical: clean SaaS implementation, semantic HTML, readable spacing, accessible contrast.
+- Keep FramePilot practical: clean SaaS implementation, semantic HTML, readable spacing, accessible contrast.
 
 HTML/CSS rules:
 - Return only one <div data-generated-ui> wrapper.
