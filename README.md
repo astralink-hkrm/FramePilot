@@ -1,8 +1,8 @@
 # FramePilot
 
 ## Demo Video
-
-<video controls width="100%" src="https://github.com/astralink-hkrm/FramePilot/raw/refs/heads/main/public/videos/framepilot-demo.mp4" title="FramePilot Demo Video"></video>
+<video src="https://github.com/user-attachments/assets/dc98d935-b176-447f-91ba-564e67a1ca12" controls="controls" width="100%">
+</video>
 
 ## Project Photos
 
