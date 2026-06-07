@@ -2,9 +2,7 @@
 
 ## Demo Video
 
-<video src="./public/videos/framepilot-demo.mp4" controls width="100%"></video>
-
-[Watch the FramePilot demo video](./public/videos/framepilot-demo.mp4)
+<video controls width="100%" src="https://github.com/astralink-hkrm/FramePilot/raw/refs/heads/main/public/videos/framepilot-demo.mp4" title="FramePilot Demo Video"></video>
 
 ## Project Photos
 
