@@ -2,37 +2,39 @@
 
 ## Demo Video
 
-> Demo walkthrough video will be added here.
+<video src="./public/videos/framepilot-demo.mp4" controls width="100%"></video>
 
-## User Interface
+[Watch the FramePilot demo video](./public/videos/framepilot-demo.mp4)
+
+## Project Photos
 
 ### Authentication
 
-![FramePilot project dashboard](./public/screenshots/F1.png)
+![FramePilot sign in page](./public/screenshots/F1.png)
 
 ### Project Dashboard
 
-![FramePilot sign in page](./public/screenshots/F2.png)
+![FramePilot project dashboard](./public/screenshots/F2.png)
 
 ### Sketch to Generated UI
 
-![FramePilot style guide colours](./public/screenshots/F3.png)
+![FramePilot canvas sketch to generated UI](./public/screenshots/F3.png)
 
-###  More Generated UI pages 
+### Workflow Generation
 
-![FramePilot style guide typography](./public/screenshots/F4.png)
+![FramePilot generated workflow pages](./public/screenshots/F4.png)
 
 ### Style Guide - Moodboard
 
 ![FramePilot moodboard image upload](./public/screenshots/F5.png)
 
-### Style Guide - Generated Typography
+### Style Guide - Typography
 
-![FramePilot generated workflow pages](./public/screenshots/F6.png)
+![FramePilot style guide typography](./public/screenshots/F6.png)
 
-### Style Guide -  Generated Colour Palette
+### Style Guide - Colours
 
-![FramePilot canvas sketch to generated UI](./public/screenshots/F7.png)
+![FramePilot style guide colours](./public/screenshots/F7.png)
 
 ## Description
 
